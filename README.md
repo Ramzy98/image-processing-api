@@ -4,7 +4,7 @@ A rest api using Node.js used to resize images and cache them.
 
 # Setup:
 
-1 - npm install
+## npm install
 
 # Available scripts:
 
