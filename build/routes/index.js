@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const routes_1 = __importDefault(require("./routes"));
-const PORT = process.env.PORT || 3003;
-const app = (0, express_1.default)();
-app.use('/api', routes_1.default);
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+const converter_1 = __importDefault(require("./converter/converter"));
+const routes = express_1.default.Router();
+routes.get('/', (req, res) => {
+    res.send('Routes Working');
 });
+routes.use('/converter', converter_1.default);
+exports.default = routes;

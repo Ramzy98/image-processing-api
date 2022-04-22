@@ -1,24 +1,14 @@
 import express from 'express';
-import sharp from 'sharp';
 import fs from 'fs';
+import { resizeImage } from './helpers';
 const converter = express.Router();
-
-async function resizeImage(filename: string, width: number, height: number) {
-  if (!filename) {
-    return null;
-  }
-  if (!width || !height || width < 0 || height < 0) {
-    return null;
-  }
-  const inputImage = `./images/full/${filename}.jpg`;
-  const outputImagePath = `./images/thumb/${filename}-thumb.jpg`;
-  const outputImage = sharp(inputImage).resize(width, height);
-  await outputImage.toFile(outputImagePath);
-  return outputImagePath;
-}
 
 converter.get('/', async (req, res) => {
   const { filename, width, height }: any = req.query;
+  if (!filename || !width || !height) {
+    res.status(400).send('Bad Request');
+    return;
+  }
   let resultedImage: string | null;
   try {
     var thumbFiles = fs.readdirSync('./images/thumb');
@@ -49,3 +39,4 @@ converter.get('/', async (req, res) => {
 });
 
 export default converter;
+export { resizeImage };
