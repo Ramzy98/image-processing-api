@@ -23,7 +23,7 @@ function resizeImage(filename, width, height) {
             return null;
         }
         const inputImage = `./images/full/${filename}.jpg`;
-        const outputImagePath = `./images/thumb/${filename}-thumb.jpg`;
+        const outputImagePath = `./images/thumb/${filename}_${width}_${height}.jpg`;
         const outputImage = (0, sharp_1.default)(inputImage).resize(width, height);
         yield outputImage.toFile(outputImagePath);
         return outputImagePath;

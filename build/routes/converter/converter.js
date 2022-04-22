@@ -29,8 +29,8 @@ converter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         var thumbFiles = fs_1.default.readdirSync('./images/thumb');
         var fullFiles = fs_1.default.readdirSync('./images/full');
         if (fullFiles.includes(filename + '.jpg')) {
-            if (thumbFiles.includes(`${filename}-thumb.jpg`)) {
-                resultedImage = `./images/thumb/${filename}-thumb.jpg`;
+            if (thumbFiles.includes(`${filename}_${width}_${height}.jpg`)) {
+                resultedImage = `./images/thumb/${filename}_${width}_${height}.jpg`;
             }
             else {
                 resultedImage = yield (0, helpers_1.resizeImage)(filename, parseInt(width), parseInt(height));
@@ -41,7 +41,9 @@ converter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 });
             }
             else {
-                res.status(400).send('Bad Request');
+                res
+                    .status(400)
+                    .send('Bad Request, please make sure filename is correct and width and height are positive');
             }
         }
         else {
