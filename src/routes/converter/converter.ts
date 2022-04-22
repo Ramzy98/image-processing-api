@@ -14,8 +14,8 @@ converter.get('/', async (req, res) => {
     var thumbFiles = fs.readdirSync('./images/thumb');
     var fullFiles = fs.readdirSync('./images/full');
     if (fullFiles.includes(filename + '.jpg')) {
-      if (thumbFiles.includes(`${filename}-thumb.jpg`)) {
-        resultedImage = `./images/thumb/${filename}-thumb.jpg`;
+      if (thumbFiles.includes(`${filename}_${width}_${height}.jpg`)) {
+        resultedImage = `./images/thumb/${filename}_${width}_${height}.jpg`;
       } else {
         resultedImage = await resizeImage(
           filename,

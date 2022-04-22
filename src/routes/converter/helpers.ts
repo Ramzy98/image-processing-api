@@ -12,7 +12,7 @@ export async function resizeImage(
     return null;
   }
   const inputImage = `./images/full/${filename}.jpg`;
-  const outputImagePath = `./images/thumb/${filename}-thumb.jpg`;
+  const outputImagePath = `./images/thumb/${filename}_${width}_${height}.jpg`;
   const outputImage = sharp(inputImage).resize(width, height);
   await outputImage.toFile(outputImagePath);
   return outputImagePath;
