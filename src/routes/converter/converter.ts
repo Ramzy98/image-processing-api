@@ -3,12 +3,6 @@ import fs from 'fs';
 import { resizeImage } from './helpers';
 const converter = express.Router();
 
-interface ImageParams {
-  filename: string;
-  width: number;
-  height: number;
-}
-
 converter.get(
   '/',
   async (req: express.Request, res: express.Response): Promise<void> => {
@@ -27,8 +21,8 @@ converter.get(
     }
     let resultedImage: string | null;
     try {
-      var thumbFiles = fs.readdirSync('./images/thumb');
-      var fullFiles = fs.readdirSync('./images/full');
+      const thumbFiles = fs.readdirSync('./images/thumb');
+      const fullFiles = fs.readdirSync('./images/full');
       if (fullFiles.includes(filename + '.jpg')) {
         if (thumbFiles.includes(`${filename}_${width}_${height}.jpg`)) {
           resultedImage = `./images/thumb/${filename}_${width}_${height}.jpg`;

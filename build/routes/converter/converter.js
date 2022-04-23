@@ -19,9 +19,15 @@ const helpers_1 = require("./helpers");
 Object.defineProperty(exports, "resizeImage", { enumerable: true, get: function () { return helpers_1.resizeImage; } });
 const converter = express_1.default.Router();
 converter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { filename, width, height } = req.query;
-    if (!filename || !width || !height) {
-        res.status(400).send('Bad Request');
+    const filename = req.query.filename;
+    const width = req.query.width;
+    const height = req.query.height;
+    if (!filename ||
+        !width ||
+        !height ||
+        !parseInt(width) ||
+        !parseInt(height)) {
+        res.status(400).send('<h1>Bad Request</h1>');
         return;
     }
     let resultedImage;

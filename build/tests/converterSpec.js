@@ -8,8 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const helpers_1 = require("../routes/converter/helpers");
+const supertest_1 = __importDefault(require("supertest"));
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
 describe('resizeImage', () => {
     it('should return null if filename is empty', () => __awaiter(void 0, void 0, void 0, function* () {
         const filename = '';
@@ -31,5 +37,16 @@ describe('resizeImage', () => {
         const height = -100;
         const resultedImage = yield (0, helpers_1.resizeImage)(filename, width, height);
         expect(resultedImage).toBeNull();
+    }));
+});
+describe('endpoint functionality', () => {
+    it('should return the correct image', () => __awaiter(void 0, void 0, void 0, function* () {
+        const filename = 'fjord';
+        const width = 100;
+        const height = 100;
+        (0, supertest_1.default)(app)
+            .get(`/converter/?filename=${filename}&width=${width}&height=${height}`)
+            .expect(200)
+            .expect('Content-Type', /image/);
     }));
 });
