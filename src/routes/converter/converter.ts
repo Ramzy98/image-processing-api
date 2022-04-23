@@ -15,7 +15,13 @@ converter.get(
     const filename = req.query.filename as string;
     const width = req.query.width as string;
     const height = req.query.height as string;
-    if (!filename || !width || !height) {
+    if (
+      !filename ||
+      !width ||
+      !height ||
+      !parseInt(width) ||
+      !parseInt(height)
+    ) {
       res.status(400).send('<h1>Bad Request</h1>');
       return;
     }
